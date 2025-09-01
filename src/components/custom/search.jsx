@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/shadcn/button"
+import { Input } from "@/components/shadcn/input"
 export function Search({placeholder}) {
     return (
         <div className="flex items-center gap-2">
