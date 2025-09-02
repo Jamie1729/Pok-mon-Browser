@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/components/shadcn/separator"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,19 +20,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <header>
-          <h1 className="text-6xl font-semibold text-center">Pokémon Browser</h1>
-          <h3 className="text-2xl font-semibold text-gray-500 text-center">Search and find Pokémon</h3>
-      </header>
-      <Separator />
-      {children}
-      <Separator />
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-          <b>Thank you for using Pokémon Browser!</b>
-      </footer>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}>
+        <header className="h-1/5 content-center">
+            <h1 className="text-6xl font-semibold text-center">Pokémon Browser</h1>
+            <h3 className="text-2xl font-semibold text-gray-500 text-center">Search and find Pokémon</h3>
+        </header>
+        <Separator />
+
+        {children}
+
+        <Separator />
+        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center h-1/5">
+            <b>Thank you for using Pokémon Browser!</b>
+        </footer>
       </body>
     </html>
   );
