@@ -3,6 +3,7 @@ import { Card } from "@/components/shadcn/card"
 import { Badge } from "@/components/shadcn/badge"
 import { useEffect, useState } from "react";
 
+import Link from "next/link";
 import Image from "next/image"
 
 export function PetCard({id}) {
@@ -27,9 +28,13 @@ export function PetCard({id}) {
 
     return (
         <div className="w-1/4 h-full p-5">
+            <Link href={ {pathname: "/detail-page", query: {id: id}} }>
             <Card id={"card-"+{id}}>
                 <div className="bg-gray-100" id="img">
-                    {loading || !data ? (<Image src="/loading.png" width={600} height={600} alt="Loading..." />) :
+                    {loading || !data ? (<div className="flex justify-center items-center w-full h-64">
+                            <span className="animate-spin w-10 h-10 border-4 border-t-transparent border-gray-600 rounded-full"></span>
+                        </div>)
+                        :
                                         (<Image src={data['sprites']['front_default']} width={600} height={600} alt={"Image of "+data['name']}/>)
                     }
                 </div>
@@ -49,6 +54,7 @@ export function PetCard({id}) {
                     </div>
                 </div>
             </Card>
+            </Link>
         </div>
 
     )

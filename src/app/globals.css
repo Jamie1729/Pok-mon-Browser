@@ -1,11 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-header, footer{
-  padding-top: 3%;
-  padding-bottom: 3%;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
