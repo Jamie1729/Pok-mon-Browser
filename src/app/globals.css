@@ -6,7 +6,6 @@ header, footer{
   padding-bottom: 3%;
 }
 
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
