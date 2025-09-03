@@ -1,9 +1,7 @@
+# Pokémon Browser
+## 1.) Project Setup & Running Instructions
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
 First, run the development server:
-
 ```bash
 npm run dev
 # or
@@ -13,24 +11,73 @@ pnpm dev
 # or
 bun dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 2.) Design and Component Decisions 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Custom React Components
+I created some custom client components which wrap various shandcn/ui components 
+<ul>
+    <li>Pet Card</li>
+    <li>Browser</li>
+    <li>StatBar</li> 
+    <li>SearchBar</li> 
+</ul>
+The shadcn/ui components for the UI and where they were used:
+<ul>
+    <li>Card: <b>Main Page</b>  - PetCards | <b>Detail page</b> - Displaying the 5 boxes with details</li>
+    <li>Badge: <b>Main Page</b> - PetCard | <b>Detail page</b> - type(s)/weaknesses Card</li>
+    <li>Separator: <b>Layout</b> - Grey line between content and footer | <b>Main page</b> - Grey line between 
+    header and content</li>
+    <li>Button: <b>Main Page</b> - Navigation buttons (Back & Next), SearchBar submit </li>
+    <li>Form: <b>Main Page</b> - SearchBar</li>
+    <li>Input: <b>Main Page</b> - SearchBar</li>
+    <li>Progress: <b>Detail Page</b> - StatBar </li>
+</ul>
+I used these components because they gave both the correct style as seen on the Figma, but also the functionality 
+needed for the project
 
-## Learn More
+## 3.) State Management Approach
 
-To learn more about Next.js, take a look at the following resources:
+## 4.) API Interaction Strategy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 5.) Challenges Encountered & Solutions
+### Strings
+<ul>
+    <li>
+        When displaying the ID of a pokémon, it is necessary to pad the number with leading 0's. I used a 
+        <a href="https://stackoverflow.com/a/20460414">solution</a> I found online, but altered it so that it
+        can be used to pad to an arbitrary length string. 
+        See /src/lib/utils.js: padId(id, digits)
+    </li>
+    <br />
+    <li>
+        The flavour text for each Pokémon contained soft hyphens which were not being displayed correctly. Also
+        the word Pokémon was always written POKéMON. I fixed these issues by creating a function to "clean" these
+        strings by removing the soft hyphens ("/f") and replacing "POKéMON" with "Pokémon". 
+        See /src/lib/utils.js: cleanText(text)
+    </li>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+</ul>
 
-## Deploy on Vercel
+### Weaknesses
+As far as I could see, the types a specific Pokémon is weak against is not stored in the PokeAPI and so would
+have to be calculated manually.
+<br />
+I have not been able to get this feature to work accurately, even using src/lib/getMultipliers.js 
+found from this <a href="https://github.com/Naramsim/Colosseum/">GitHub Repo</a>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 6.) Bonus Feature Implementation
+### Loading State Indicators
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Display Pokémon Images
+    
+### Search Functionality
+    Not Yet Implemented
+
+## 7.) Self-Reflection & Potential Improvements
+
+
+
+
