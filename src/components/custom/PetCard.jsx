@@ -1,4 +1,5 @@
 'use client'
+import {capFirst} from "@/lib/utils";
 import { Card } from "@/components/shadcn/card"
 import { Badge } from "@/components/shadcn/badge"
 import { useEffect, useState } from "react";
@@ -31,11 +32,11 @@ export function PetCard({id}) {
             <Link href={ {pathname: "/detail-page", query: {id: id}} }>
             <Card id={"card-"+{id}}>
                 <div className="bg-gray-100" id="img">
-                    {loading || !data ? (<div className="flex justify-center items-center w-full h-64">
-                            <span className="animate-spin w-10 h-10 border-4 border-t-transparent border-gray-600 rounded-full"></span>
-                        </div>)
-                        :
-                                        (<Image src={data['sprites']['front_default']} width={600} height={600} alt={"Image of "+data['name']}/>)
+                    {loading || !data ?
+                            (<div className="flex justify-center items-center w-full h-64">
+                                <span className="animate-spin w-10 h-10 border-4 border-t-transparent border-gray-600 rounded-full"></span>
+                            </div>) :
+                            (<Image src={data['sprites']['front_default']} width={600} height={600} alt={"Image of "+capFirst(data['name'])}/>)
                     }
                 </div>
                 <div className="pl-2 pr-2 pb-2">
@@ -46,7 +47,7 @@ export function PetCard({id}) {
                                 <p>#N/A</p>
                             </>) : (
                             <>
-                                <h1>{data['name']}</h1>
+                                <h1>{capFirst(data['name'])}</h1>
                                 <p>#{data['id']}</p>
                                 <div id="types">{renderTypes(data['types'])}</div>
                             </>
@@ -59,7 +60,8 @@ export function PetCard({id}) {
 
     )
 }
-const renderTypes = (types) => {
+
+export const renderTypes = (types) => {
     return types.map((type) => {
         return <Badge className="ml-1 mr-1" key={type.type.name}>{type.type.name}</Badge>
     })

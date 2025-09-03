@@ -14,3 +14,7 @@ export function padId(id, digits){
 export function capFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function cleanText(text){
+  return text.replace("\f"," ").replace("POKéMON","Pokémon")
+}
