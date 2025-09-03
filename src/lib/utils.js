@@ -19,10 +19,6 @@ export function capFirst(string) {
 export function cleanText(text){
   return text.replace("\f"," ").replace("POKéMON","Pokémon")
 }
-//Not Yet Implmented
-export function calculateWeaknesses(types){
-  return (<h1>Not Yet Implemented</h1>)
-}
 
 export const renderTypes = (types) => {
   return types.map((type) => {

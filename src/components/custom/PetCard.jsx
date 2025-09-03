@@ -1,5 +1,5 @@
 'use client'
-import {capFirst, renderTypes} from "@/lib/utils";
+import {capFirst, padId, renderTypes} from "@/lib/utils";
 import {Card} from "@/components/shadcn/card"
 import {useEffect, useState} from "react";
 
@@ -38,18 +38,18 @@ export function PetCard({id}) {
                             (<Image src={data['sprites']['front_default']} width={600} height={600} alt={"Image of "+capFirst(data['name'])}/>)
                     }
                 </div>
-                <div className="pl-2 pr-2 pb-2">
+                <div className="pl-4 pb-4">
                     <div id="details">
                         {loading || !data ? (
-                            <>
+                            <div className="mt-[-4]">
                                 <h1>Loading...</h1>
                                 <p>#N/A</p>
-                            </>) : (
-                            <>
+                            </div>) : (
+                            <div className="mt-[-4]">
                                 <h1>{capFirst(data['name'])}</h1>
-                                <p>#{data['id']}</p>
-                                <div id="types">{renderTypes(data['types'])}</div>
-                            </>
+                                <p>#{padId(data['id'],4)}</p>
+                                <div id="types" className="mt-5">{renderTypes(data['types'])}</div>
+                            </div>
                         )}
                     </div>
                 </div>

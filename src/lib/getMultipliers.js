@@ -13,6 +13,7 @@ export default function getMultipliers(types) {
         var half_damage_from = damage_relations.defense.half
         var double_damage_to = damage_relations.attack.double
         var double_damage_from = damage_relations.defense.double
+
         no_damage_to.forEach((type) => {
           if(multipliers.attack.hasOwnProperty(type)){multipliers.attack[type] = multipliers.attack[type] * 0}
           else{multipliers.attack[type] = 0}
@@ -37,6 +38,7 @@ export default function getMultipliers(types) {
           if(multipliers.defense.hasOwnProperty(type)){multipliers.defense[type] = multipliers.defense[type] * 2}
           else{multipliers.defense[type] = 2}
         })
+
     })
     return multipliers
 }

@@ -1,6 +1,6 @@
 'use client'
 import "../globals.css"
-import {padId, capFirst, cleanText, calculateWeaknesses} from "@/lib/utils"
+import {padId, capFirst, cleanText} from "@/lib/utils"
 import { useEffect, useState } from "react";
 import { useSearchParams }     from "next/navigation";
 import Image                   from "next/image";
@@ -61,15 +61,14 @@ export default function Page() {
                         <p className="text-2xl text-[#71717a] font-semibold pl-1">#{padId(petData['id'], 4)}</p>
                     </div>
 
-                    <div className="relative w-4/5 flex float-left items-center h-full rounded-xl bg-[#f5f4f4] pl-10 pt-5 pb-5 mt-5">
-                        {/* White Circle with the red-ball image */}
+                    <Card className="relative w-4/5 flex-row items-center h-full rounded-xl bg-[#f5f4f4] pl-10 pt-5 pb-5 mt-5">
                         <div
                             className="flex shrink-0 justify-center items-center bg-white rounded-full size-16 shadow-lg">
                             <Image src="/red-ball.png" width={223} height={226} alt="Red Pokéball"
                                    className="object-contain p-2"/>
                         </div>
                         <p className="pl-4 pr-4">{petText}</p>
-                    </div>
+                    </Card>
 
                     <div className=" flex gap-4 mt-5 w-4/5 h-125 justify-center">
                         <Card id="biology" className="w-1/3 p-6">
