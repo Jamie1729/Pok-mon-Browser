@@ -1,8 +1,7 @@
 'use client'
-import {capFirst} from "@/lib/utils";
-import { Card } from "@/components/shadcn/card"
-import { Badge } from "@/components/shadcn/badge"
-import { useEffect, useState } from "react";
+import {capFirst, renderTypes} from "@/lib/utils";
+import {Card} from "@/components/shadcn/card"
+import {useEffect, useState} from "react";
 
 import Link from "next/link";
 import Image from "next/image"
@@ -61,8 +60,3 @@ export function PetCard({id}) {
     )
 }
 
-export const renderTypes = (types) => {
-    return types.map((type) => {
-        return <Badge className="ml-1 mr-1" key={type.type.name}>{type.type.name}</Badge>
-    })
-}

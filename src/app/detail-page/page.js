@@ -1,21 +1,23 @@
 'use client'
 import "../globals.css"
 import {padId, capFirst, cleanText, calculateWeaknesses} from "@/lib/utils"
-
 import { useEffect, useState } from "react";
 import { useSearchParams }     from "next/navigation";
 import Image                   from "next/image";
 import { Skeleton }            from "@/components/shadcn/skeleton";
 import { Card }                from "@/components/shadcn/card";
 import { StatBar }             from "@/components/custom/StatBar";
-import {renderTypes}           from "@/components/custom/PetCard";
+import getMultipliers from "@/lib/getMultipliers";
+import {Badge} from "@/components/shadcn/badge";
 
+const all_types = ["bug","dark","dragon","electric","fire","flying","fairy","fighting","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"]
 
 export default function Page() {
     const searchParams = useSearchParams()
     const id = searchParams.get('id')
     const [petData, setPetData] = useState(null)
     const [petText, setPetText] = useState(null)
+    const [petAbilities, setPetAbilities] = useState(null)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         const fetchData = async () => {
@@ -24,9 +26,11 @@ export default function Page() {
                 const pet_res = await fetch("https://pokeapi.co/api/v2/pokemon/" + id);
                 const pet_json = await pet_res.json();
                 setPetData(pet_json);
+
                 const species_res = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id);
                 const species_json = await species_res.json();
                 setPetText(cleanText(species_json['flavor_text_entries'][0]['flavor_text']));
+
             } catch (err) {
                 console.error("Error fetching data:", err);
                 setPetData(null);
@@ -64,32 +68,49 @@ export default function Page() {
                             <Image src="/red-ball.png" width={223} height={226} alt="Red Pokéball"
                                    className="object-contain p-2"/>
                         </div>
-                        <p className="pl-4">{petText}</p>
+                        <p className="pl-4 pr-4">{petText}</p>
                     </div>
 
-                    <div className=" flex gap-4 mt-5 w-4/5 h-150 justify-center p-5 ">
-                        <Card id="biology" className="w-1/3">
-
+                    <div className=" flex gap-4 mt-5 w-4/5 h-125 justify-center">
+                        <Card id="biology" className="w-1/3 p-6">
+                            <div className="inline-block">
+                                <h1 className="text-1xl font-semibold pb-1">Height</h1>
+                                <p>{petData['height']/10}m</p>
+                            </div>
+                            <div className="inline-block">
+                                <h1 className="text-1xl font-semibold pb-1">Category</h1>
+                                <p>{}</p>
+                            </div>
+                            <div className="inline-block">
+                                <h1 className="text-1xl font-semibold pb-1">Weight</h1>
+                                <p>{petData['weight']/10}kg</p>
+                            </div>
+                            <div className="inline-block">
+                                <h1 className="text-1xl font-semibold pb-1">Gender</h1>
+                                <p>{}</p>
+                            </div>
                         </Card>
                         <div className="grid grid-rows-2 w-2/3">
-                            <div className="flex gap-4">
-                                <Card id="types" className="w-1/2">
-                                    <div id="types_top" className="block">
-                                        <h1 className="text-1xl font-semibold">Types</h1>
-                                        {renderTypes(petData['types'])}
+                            <div className="flex gap-4 row-span-1 mb-2">
+                                <Card id="types" className="w-1/2 p-6">
+                                    <div id="types_top" className="block w-full">
+                                        <h1 className="text-1xl font-semibold pb-1">Type(s)</h1>
+                                        {renderTypes(petData['types'].map((type) => type['type']['name']))}
                                     </div>
-                                    <div id="types_bot">
-                                        <h1 className="text-1xl font-semibold">Weaknesses</h1>
-                                        {calculateWeaknesses(petData['types'])}
+                                    <div id="types_bot" className="block w-full">
+                                        <h1 className="text-1xl font-semibold pb-1">Weaknesses</h1>
+                                        {calcWeaknesses((petData['types'].map((type) => type['type']['name'])))}
                                     </div>
                                 </Card>
 
-                                <Card id="abilities" className="w-1/2">
+                                <Card id="abilities" className="w-1/2 p-6">
                                     <h1 className="text-1xl font-semibold">Ability</h1>
+                                    {renderAbilities(petData['abilities'])}
                                 </Card>
+
                             </div>
-                            <Card id="stats" className="flex w-full mt-4 pt-2 pb-2">
-                                <div className="h-full">{renderStatBars(petData['stats'])}</div>
+                            <Card id="stats" className="flex w-full row-span-1 pt-6 mt-2">
+                                <div className="h-full ">{renderStatBars(petData['stats'])}</div>
                             </Card>
                         </div>
                     </div>
@@ -105,8 +126,21 @@ function renderStatBars(stats){
     })
 }
 function renderAbilities(abilities){
-
+    return null
 }
-function renderBioInfo(){
-
+function calcWeaknesses(types){
+    const multipliers = getMultipliers(types)
+    console.log(multipliers)
+    let weaknesses = []
+    all_types.forEach((type) =>{
+        const atk = multipliers['attack'][type]
+        const def = multipliers['defense'][type]
+        if (def !== null && def > 1){weaknesses.push(type)}
+    })
+    return renderTypes(weaknesses)
+}
+function renderTypes(types){
+    return types.map((type) => {
+        return <Badge className="mr-2 items-center" key={type}>{type}</Badge>
+    })
 }

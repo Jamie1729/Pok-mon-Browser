@@ -1,5 +1,6 @@
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge"
+import {clsx} from "clsx";
+import {twMerge} from "tailwind-merge"
+import {Badge} from "@/components/shadcn/badge";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -17,4 +18,14 @@ export function capFirst(string) {
 
 export function cleanText(text){
   return text.replace("\f"," ").replace("POKéMON","Pokémon")
+}
+//Not Yet Implmented
+export function calculateWeaknesses(types){
+  return (<h1>Not Yet Implemented</h1>)
+}
+
+export const renderTypes = (types) => {
+  return types.map((type) => {
+    return <Badge className="mr-2" key={type.type.name}>{type.type.name}</Badge>
+  })
 }

@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         {children}
 
         <Separator />
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center h-1/5">
+        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center h-1/5 mt-10 mb-10">
             <b>Thank you for using Pokémon Browser!</b>
         </footer>
 
