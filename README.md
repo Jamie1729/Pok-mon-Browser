@@ -11,7 +11,8 @@ pnpm dev
 # or
 bun dev
 ```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.<br/><br/>
+I have been using the WebStorm IDE to develop and test this project, using the instructions above.
 
 ## 2.) Design and Component Decisions 
 
@@ -63,16 +64,22 @@ needed for the project
 ### Weaknesses
 As far as I could see, the types a specific Pokémon is weak against is not stored in the PokeAPI and so would
 have to be calculated manually.
-<br />
+<br /><br/>
 I have not been able to get this feature to work accurately, even using src/lib/getMultipliers.js 
 found from this <a href="https://github.com/Naramsim/Colosseum/">GitHub Repo</a>
 
 ## 6.) Bonus Feature Implementation
 ### Loading State Indicators
-
+I have implemented a loading state indicator for the main page but not the detail page. 
+Although I chose to render each PetCard in a loading state instead of keeping the browser in a loading state until
+all the PetCards have rendered as depicted in the Figma.
+<br/><br/>
+Although it could be argued that this is a less visually clean choice, it does mean that the user can look at some 
+of the data whilst the rest is loading. 
 
 ### Display Pokémon Images
-    
+The PokéAPI provides a link to the sprite for each Pokémon, which I successfully displayed 
+(exactly as formatted in the Figma) on both the Main page and Detail page.
 ### Search Functionality
     Not Yet Implemented
 
